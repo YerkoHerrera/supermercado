@@ -12,6 +12,6 @@ import com.nttdata.models.Producto;
 public interface ProductoRepository extends CrudRepository<Producto, Long> {
 	List<Producto> findAll();
 	
-	@Query("SELECT p FROM Producto p Where nombre = ?1")
+	@Query(value= "SELECT * FROM productos Where nombre =?1", nativeQuery = true)
 	List<Producto> obtenerProductoBusqueda(String busqueda);
 }

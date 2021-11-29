@@ -53,9 +53,14 @@ public void insertarCarrito(@Valid Carrito carrito) {
 		}	
 	}
 
-	public void insertarProductoCarrito(@Valid Producto producto) {
-		// Falta crear
+	public Carrito agregarProductoCarrito(@Valid Carrito carrito) {
+		return carritoRepository.save(carrito);
 		
+	}
+	
+	public Carrito eliminarProductoCarrito(@Valid Producto producto) {
+		// Implementar
+		return carritoRepository.eliminarProductoCarrito;
 	}
 
 }

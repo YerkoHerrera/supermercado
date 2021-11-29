@@ -23,7 +23,7 @@ public class LoginController {
     	Usuario usuarioLogin = usuarioService.obtenerUsuarioLogin(usuario);
 
     	if(usuarioLogin != null) {
-    		return "home.jsp";
+    		return "redirect:/home";
 		}
 		return "login.jsp";
 	}

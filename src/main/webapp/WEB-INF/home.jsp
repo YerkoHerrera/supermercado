@@ -17,11 +17,11 @@
 <jsp:include page="templates/navbar.jsp"/>
 	<div class="container-fluid">
 	<h2 align="center">Busca Productos</h2>
-	<form:form method="post" action="/home/buscar" modelAttribute="busqueda">
-		<form:label path="nombre">Buscador:</form:label>
-			<form:input type="text" path="nombre"/>
-			<br>
-			<input type="submit" value="Buscar">
+	
+	<form:form method="post" action="/home/buscar">
+		<label for="nombre">Nombre: </label>
+		<input type="text" name="nombre" id="nombre"> <br>
+		<input type="submit" value="Buscar">
 	</form:form>
 	
 	<table>

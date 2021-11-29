@@ -1,17 +1,24 @@
 package com.nttdata.services;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nttdata.models.Producto;
 import com.nttdata.models.Venta;
+import com.nttdata.repositories.ProductoRepository;
 import com.nttdata.repositories.VentaRepository;
 
 @Service
 public class VentaService {
 	@Autowired
 	VentaRepository ventaRepository;
+	
+	@Autowired
+	ProductoRepository productoRepository;
 
 	public void insertarVenta(@Valid Venta venta) {
 		
@@ -50,5 +57,9 @@ public class VentaService {
 		if(ventaRepository.existsById(venta.getId())){
 			ventaRepository.save(venta);
 		}	
+	}
+	
+	public List<Producto> obtenerListaCarrito(Long id){
+		return ventaRepository.obtenerListaCarrito(id);
 	}
 }
