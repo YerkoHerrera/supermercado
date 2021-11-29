@@ -17,7 +17,6 @@
 <jsp:include page="templates/navbar.jsp"/>
 	<div class="container-fluid">
 		<form:form method="post" action="/usuario/update/${usuario.id}" modelAttribute="usuario">
-			<input type="hidden" name="_method" value="put">
 			<form:label path="nombre">Nombre:</form:label>
 			<form:input type="text" path="nombre"/>
 			<br>
@@ -27,13 +26,15 @@
 			<form:label path="limite">Limite:</form:label>
 			<form:input type="text" path="limite"/>
 			<br>
-			<form:label path="codigoPostal">Código Postal:</form:label>
+			<form:label path="codigoPostal">Codigo Postal:</form:label>
 			<form:input type="text" path="codigoPostal"/>
 			<br>
 			<form:label path="email">Email:</form:label>
 			<form:input type="text" path="email"/>
 			<br>
-			<input type="button" value="Limpiar">
+			<form:label path="contrasena">Password:</form:label>
+			<form:input type="text" path="contrasena"/>
+			<br>
 			<input type="submit" value="Submit">
 
 

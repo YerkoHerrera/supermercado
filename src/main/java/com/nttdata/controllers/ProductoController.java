@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nttdata.models.Producto;
+import com.nttdata.services.CategoriaService;
 import com.nttdata.services.ProductoService;
 
 @Controller
@@ -21,11 +22,17 @@ public class ProductoController {
 	
 	@Autowired
 	ProductoService productoService;
+	
+	//Es importantisimo agregar los servicios de categoria para que se muestren en la vista
+	@Autowired
+	CategoriaService categoriaService;
 
 	@RequestMapping("")
 	public String producto(@ModelAttribute("producto") Producto producto,
 			Model model) {
 		model.addAttribute("listaProductos", productoService.obtenerListaProductos());
+		//Se agrega listaCategorias para poder trabajar con ellas en agregar y editar
+		model.addAttribute("listaCategorias", categoriaService.obtenerListaCategorias());
 		return "producto.jsp";
 	}
 	
@@ -42,9 +49,9 @@ public class ProductoController {
 	
 	@RequestMapping("/{id}/editar")
 	public String editarProducto(@PathVariable("id") Long id, Model model) {
-		
 		Producto producto = productoService.buscarProducto(id);
 		if(producto != null) {
+			model.addAttribute("listaCategorias", categoriaService.obtenerListaCategorias());
 			model.addAttribute("producto", producto);
 			return "/editarProducto.jsp";
 			
@@ -63,7 +70,7 @@ public class ProductoController {
     }
 	
 	@RequestMapping("/crear")
-	public String crearUsuario(@Valid @ModelAttribute("producto") Producto producto) {
+	public String crearProducto(@Valid @ModelAttribute("producto") Producto producto) {
 		
 		productoService.insertarProducto(producto);
 		

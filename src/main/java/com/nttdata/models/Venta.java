@@ -1,5 +1,8 @@
 package com.nttdata.models;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,22 +16,21 @@ public class Venta {
 	@Id 
 	@GeneratedValue(strategy= GenerationType.IDENTITY) 
 	private Long id;
-	private Integer codVenta;
-	private String nombre;
-	private String fecha;
-	
-	
+	@Column(updatable = false)
+	private Date createAt;
+	private Date updateAt;
+
+
 	public Venta() {
 		super();
 	}
 
 
-	public Venta(Long id, Integer codVenta, String nombre, String fecha) {
+	public Venta(Long id, Date createAt, Date updateAt) {
 		super();
 		this.id = id;
-		this.codVenta = codVenta;
-		this.nombre = nombre;
-		this.fecha = fecha;
+		this.createAt = createAt;
+		this.updateAt = updateAt;
 	}
 
 
@@ -42,36 +44,23 @@ public class Venta {
 	}
 
 
-	public Integer getCodVenta() {
-		return codVenta;
+	public Date getCreateAt() {
+		return createAt;
 	}
 
 
-	public void setCodVenta(Integer codVenta) {
-		this.codVenta = codVenta;
+	public void setCreateAt(Date createAt) {
+		this.createAt = createAt;
 	}
 
 
-	public String getNombre() {
-		return nombre;
+	public Date getUpdateAt() {
+		return updateAt;
 	}
 
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setUpdateAt(Date updateAt) {
+		this.updateAt = updateAt;
 	}
-
-
-	public String getFecha() {
-		return fecha;
-	}
-
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-	
-	
-	
 	
 }

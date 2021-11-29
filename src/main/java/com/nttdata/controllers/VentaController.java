@@ -39,33 +39,4 @@ public class VentaController {
 		return "redirect:/venta";
 	}
 	
-	@RequestMapping("/{id}/editar")
-	public String editarVenta(@PathVariable("id") Long id, Model model) {
-		
-		Venta venta = ventaService.buscarVenta(id);
-		if(venta != null) {
-			model.addAttribute("venta", venta);
-			return "/editarVenta.jsp";
-			
-		}
-		return "redirect:/venta";
-	}
-	
-	@RequestMapping(value="/update/{id}", method=RequestMethod.PUT)
-    public String update(@Valid @ModelAttribute("venta") Venta venta, BindingResult result) {
-        if (result.hasErrors()) {
-            return "/venta/editarVenta.jsp";
-        } else {
-        	ventaService.updateVenta(venta);
-            return "redirect:/venta";
-        }
-    }
-	
-	@RequestMapping("/login")
-	public String login(@Valid @ModelAttribute("venta") Venta venta) {
-		
-		ventaService.insertarVenta(venta);
-		
-		return "redirect:/venta";
-	}
 }

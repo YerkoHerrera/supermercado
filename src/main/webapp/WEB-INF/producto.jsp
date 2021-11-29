@@ -26,6 +26,13 @@
 			<form:label path="descripcion">Descripcion:</form:label>
 			<form:input type="text" path="descripcion"/>
 			<br>
+			<form:select class="form-select" path="categoria">
+				<c:forEach items="${listaCategorias}" var="categoria" >
+					<form:option value="${categoria.getId()}">
+						${categoria.getNombre()}
+			     	</form:option>
+				</c:forEach>
+			</form:select>
 			<input type="submit" value="Crear Producto">
 
 		</form:form>
@@ -34,9 +41,10 @@
 			<thead>
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col">Codigo Producto</th>
+					<th scope="col">Valor</th>
 					<th scope="col">Nombre</th>
-					<th scope="col">Tipo</th>
+					<th scope="col">Descripcion</th>
+					<th scope="col">Categoria</th>
 					<th scope="col-2">Acciones</th>
 				</tr>
 			</thead>
@@ -44,9 +52,10 @@
 				<c:forEach items="${listaProductos}" var="producto">
 					<tr>
 						<th scope="row">${producto.getId()}</th>
-						<td>${producto.ValorBase()}</td>
+						<td>${producto.getValorBase()}</td>
                         <td>${producto.getNombre()}</td>
-                        <td>${producto.getCategoria().getNombre}</td>
+                        <td>${producto.getDescripcion()}</td>
+                        <td>${producto.getCategoria().getNombre()}</td>
 
                         <td>
                         	<a href="/producto/${producto.getId()}/editar" class="btn btn-primary" role="button" data-bs-toggle="button">Editar</a>

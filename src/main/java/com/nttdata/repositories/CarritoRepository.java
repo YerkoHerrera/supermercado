@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.nttdata.models.Venta;
+import com.nttdata.models.Carrito;
 
 @Repository 
-public interface VentaRepository extends CrudRepository<Venta, Long> {
-	List<Venta> findAll();
+public interface CarritoRepository extends CrudRepository<Carrito, Long> {
+	List<Carrito> findAll();
 }

@@ -10,7 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -27,8 +28,14 @@ public class Carrito {
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
 	
-	//Relacion de un carrito con multiples productos en stock
-	@OneToMany(mappedBy ="carrito",fetch = FetchType.LAZY)
+	
+	//Releacion many to many entre carritos y productos
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+		name="ventas",//Tabla intermedia que sirve como registro de ventas
+		joinColumns = @JoinColumn(name="carrito_id"),
+		inverseJoinColumns = @JoinColumn(name="producto_id")
+	)
 	private List<Producto> productos;
 	
 	//Fecha de compra
@@ -38,12 +45,13 @@ public class Carrito {
 	public Carrito() {
 		super();
 	}
-	
-	public Carrito(Long id, Usuario usuario, List<Producto> productos) {
+
+	public Carrito(Long id, Usuario usuario, List<Producto> productos, Date createdAt) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.productos = productos;
+		this.createdAt = createdAt;
 	}
 
 	public Long getId() {
@@ -68,6 +76,14 @@ public class Carrito {
 
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
 }

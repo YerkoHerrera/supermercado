@@ -16,7 +16,7 @@
           <a class="nav-link" href="/producto">Productos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/venta">Ventas</a>
+          <a class="nav-link" href="/categoria">Categorias</a>
         </li>
       </ul>
       <span class="navbar-text">

@@ -17,17 +17,23 @@
 <jsp:include page="templates/navbar.jsp"/>
 	<div class="container-fluid">
 		<form:form method="post" action="/producto/update/${producto.id}" modelAttribute="producto">
-			<input type="hidden" name="_method" value="put">
-			<form:label path="codProducto">Codigo Producto:</form:label>
-			<form:input type="text" path="codProducto"/>
-			<br>
 			<form:label path="nombre">Nombre:</form:label>
 			<form:input type="text" path="nombre"/>
 			<br>
-			<form:label path="tipo">Tipo:</form:label>
-			<form:input type="text" path="tipo"/>
+			<form:label path="valorBase">Valor Base:</form:label>
+			<form:input type="text" path="valorBase"/>
 			<br>
-			<input type="submit" value="Submit">
+			<form:label path="descripcion">Descripcion:</form:label>
+			<form:input type="text" path="descripcion"/>
+			<br>
+			<form:select class="form-select" path="categoria">
+				<c:forEach items="${listaCategorias}" var="categoria" >
+					<form:option value="${categoria.getId()}">
+						${categoria.getNombre()}
+			     	</form:option>
+				</c:forEach>
+			</form:select>
+			<input type="submit" value="Editar Producto">
 
 		</form:form>
 		

@@ -17,7 +17,7 @@
 <jsp:include page="templates/navbar.jsp"/>
 	<div class="container-fluid">
 	<h2 align="center">Busca Productos</h2>
-	<form:form method="post" action="/buscar" modelAttribute="producto">
+	<form:form method="post" action="/home/buscar" modelAttribute="busqueda">
 		<form:label path="nombre">Buscador:</form:label>
 			<form:input type="text" path="nombre"/>
 			<br>
@@ -28,9 +28,10 @@
 			<thead>
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col">Nombre</th>
 					<th scope="col">Valor</th>
+					<th scope="col">Nombre</th>
 					<th scope="col">Descripcion</th>
+					<th scope="col">Categoria</th>
 					<th scope="col-2">Acciones</th>
 				</tr>
 			</thead>
@@ -38,13 +39,15 @@
 				<c:forEach items="${listaProductos}" var="producto">
 					<tr>
 						<th scope="row">${producto.getId()}</th>
-						
+						<td>${producto.getValorBase()}</td>
                         <td>${producto.getNombre()}</td>
-                        <td>${producto.getValorBase()}</td>
                         <td>${producto.getDescripcion()}</td>
-                        <td>${producto.getCategoria().getNombre}</td>
-                        <td>
-                        	<a href="/carrito/${producto.getId()}/agregar" class="btn btn-primary" role="button" data-bs-toggle="button">Agregar</a>
+                        <td>${producto.getCategoria().getNombre()}</td>
+						<td>
+                        	<form action="/home/agregar" method="get">
+                        		<input type="hidden" name="id" value="${producto.getId()}">
+                        		<input type="submit" value="Agregar">
+                        	</form>
                         </td>
 					</tr>
 				</c:forEach>
