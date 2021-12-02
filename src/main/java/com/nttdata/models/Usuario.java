@@ -1,5 +1,6 @@
 package com.nttdata.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -21,8 +22,9 @@ import javax.persistence.Transient;
 
 @Entity // Representación de la entidad modelo 
 @Table(name="usuarios") //Nombre de la tabla en la bbdd
-public class Usuario {
+public class Usuario implements Serializable {
 	
+
 	@Id //Clave primaria
 	@GeneratedValue(strategy= GenerationType.IDENTITY) //Auto incrementable
 	private Long id;
@@ -176,5 +178,7 @@ public class Usuario {
     protected void onUpdate(){
         this.updatedAt = new Date();
     }
+    
+    private static final long serialVersionUID = 1L;
 	
 }

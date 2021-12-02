@@ -18,7 +18,7 @@
 	<h1>Sign in</h1>
 	<hr>
 	<h2>Registro de nuevo usuario</h2>
-		<form:form method="post" action="/usuario/registrar" modelAttribute="usuario">
+		<form:form method="post" action="/registro" modelAttribute="usuario">
 			<form:label path="nombre">Nombre:</form:label>
 			<form:input type="text" path="nombre"/>
 			<br>

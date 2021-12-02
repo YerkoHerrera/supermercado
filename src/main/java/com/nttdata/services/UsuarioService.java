@@ -3,10 +3,10 @@ package com.nttdata.services;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nttdata.models.Usuario;
-import com.nttdata.repositories.RoleRepository;
 import com.nttdata.repositories.UsuarioRepository;
 
 @Service
@@ -18,11 +18,20 @@ public class UsuarioService {
 	
 	@Autowired 
 	RoleService roleService;
+	
+	@Autowired 
+	BCryptPasswordEncoder passwordEncoder;
 
 	public void insertarUsuario(@Valid Usuario usuario) {
 		
 		usuario.setRoles(roleService.findByNombre("ROLE_USER"));
 		usuarioRepository.save(usuario);
+	}
+	
+	public Usuario registrarUsuario(@Valid Usuario usuario) {
+		System.out.println("Viene el usuario: " + usuario.getId() + " " + usuario.getNombre());
+		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+		return usuarioRepository.save(usuario);
 	}
 
 	public Object obtenerListaUsuarios() {

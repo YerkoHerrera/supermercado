@@ -1,5 +1,7 @@
 package com.nttdata.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nttdata.models.Carrito;
 import com.nttdata.models.Producto;
-import com.nttdata.models.Usuario;
 import com.nttdata.services.CarritoService;
 import com.nttdata.services.ProductoService;
 import com.nttdata.services.UsuarioService;
@@ -55,6 +56,18 @@ public class CarritoController {
 		return "redirect:/home";
     }
 	
+	@RequestMapping("/total")
+	public Integer calcularTotal(@ModelAttribute("carrito") Carrito carrito, 
+			Model model) {
+		List<Producto> productos = carrito.getProductos();
+		Integer total = 0;
+		
+		for(Producto producto : productos) {
+		    total += producto.getValorBase();
+		}
+
+		return total;
+	}
 	
 	/*@RequestMapping("/agregar")
 	public String agregarProducto(@RequestParam("id") Long id, Carrito carrito) {

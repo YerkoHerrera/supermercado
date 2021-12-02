@@ -49,6 +49,9 @@
 				</c:forEach>
 			</tbody>
 		</table>
+			<tr>
+				<c items="${total}" var="carrito"></c>
+			</tr>
 	</div>
 </body>
 
