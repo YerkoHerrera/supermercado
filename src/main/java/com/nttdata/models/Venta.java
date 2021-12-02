@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity 
@@ -17,8 +19,8 @@ public class Venta {
 	@GeneratedValue(strategy= GenerationType.IDENTITY) 
 	private Long id;
 	@Column(updatable = false)
-	private Date createAt;
-	private Date updateAt;
+	private Date createdAt;
+	private Date updatedAt;
 
 
 	public Venta() {
@@ -29,8 +31,8 @@ public class Venta {
 	public Venta(Long id, Date createAt, Date updateAt) {
 		super();
 		this.id = id;
-		this.createAt = createAt;
-		this.updateAt = updateAt;
+		this.createdAt = createAt;
+		this.updatedAt = updateAt;
 	}
 
 
@@ -45,22 +47,30 @@ public class Venta {
 
 
 	public Date getCreateAt() {
-		return createAt;
+		return createdAt;
 	}
 
 
 	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
+		this.createdAt = createAt;
 	}
 
 
 	public Date getUpdateAt() {
-		return updateAt;
+		return updatedAt;
 	}
 
 
 	public void setUpdateAt(Date updateAt) {
-		this.updateAt = updateAt;
+		this.updatedAt = updateAt;
 	}
 	
+	@PrePersist
+    protected void onCreate(){
+        this.createdAt = new Date();
+    }
+    @PreUpdate
+    protected void onUpdate(){
+        this.updatedAt = new Date();
+    }
 }

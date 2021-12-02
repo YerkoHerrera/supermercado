@@ -38,27 +38,55 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/agregar")
-	public String agregarProducto(@RequestParam("id") Long id) {
+	public String agregarProducto(@RequestParam("id") Long id, Model model) {
+		
+		//Primero busca el producto agregado
 		Producto producto = productoService.buscarProducto(id);
+		
+		/*
+		 	Busca el usuario que ha iniciado sesion (Por ahora es temporal)
+			Lo ideal es que se ingrese con una sesion que se mantenga activa y
+			llamarla desde aqui.
+		*/
 		Usuario usuario = usuarioService.buscarUsuario(1L);
 		
-		if(usuario.getCarrito() != null) {
+		if(usuario.getCarrito() == null) {
+			
+			// Si no tiene un carrito se crea aqui
+			Carrito carritoNuevo = new Carrito();
+			carritoNuevo.setUsuario(usuario);
+			carritoService.insertarCarrito(carritoNuevo);	
+			usuario.setCarrito(carritoNuevo);
+			System.out.println("Se creo un carrito para el usuario");
+			
+			//Luego de crearse se incluye el producto
+			carritoService.agregarProductoCarrito(usuario.getCarrito());	
+			System.out.println("Se agrego un producto");
+			/*
+		 	Busca el carrito (Por ahora es temporal)
+			Lo ideal es que se ingrese con una sesion que se mantenga activa y
+			llamar al carrto desde aqui.
+			 */
+			model.addAttribute("carrito", usuario.getCarrito());
+			return "redirect:/carrito";
+			
+		}else {
+			
 			// Se agregar un objeto a la lista de productos del carrito de un usuario especifico
 			usuario.getCarrito().getProductos().add(producto);
 			// Le pasamos el carrito del usuario
-			carritoService.agregarProductoCarrito(usuario.getCarrito());
+			carritoService.agregarProductoCarrito(usuario.getCarrito());	
 			System.out.println("Se agrego un producto");
-			return "/carrito.jsp";
-		}else {
-			// Si no tiene un carro se crea aqui
-			Carrito carritoNuevo = new Carrito();
-			carritoNuevo.setUsuario(usuario);
-			usuario.setCarrito(carritoNuevo);
-			carritoService.insertarCarrito(carritoNuevo);
-			System.out.println("Se creo un carrito para el usuario");
-		}
-		
-		return "redirect:/home";
+			model.addAttribute("carrito", usuario.getCarrito());
+			/*
+		 	Busca el carrito (Por ahora es temporal)
+			Lo ideal es que se ingrese con una sesion que se mantenga activa y
+			llamar al carrto desde aqui.
+			 */
+			model.addAttribute("carrito", usuario.getCarrito());
+			return "redirect:/carrito";
+			
+		}	
 	}
 
 	@RequestMapping("/buscar")

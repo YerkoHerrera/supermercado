@@ -62,7 +62,7 @@ public class ProductoController {
 	@RequestMapping(value="/update/{id}", method=RequestMethod.PUT)
     public String update(@Valid @ModelAttribute("producto") Producto producto, BindingResult result) {
         if (result.hasErrors()) {
-            return "/producto/editarProducto.jsp";
+            return "editarProducto.jsp";
         } else {
         	productoService.updateProducto(producto);
             return "redirect:/producto";

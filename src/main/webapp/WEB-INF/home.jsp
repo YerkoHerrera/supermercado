@@ -16,6 +16,8 @@
 <body>
 <jsp:include page="templates/navbar.jsp"/>
 	<div class="container-fluid">
+	<h1>Hola ${nombre_usuario}</h1>
+	<hr>
 	<h2 align="center">Busca Productos</h2>
 	
 	<form:form method="post" action="/home/buscar">
@@ -46,7 +48,7 @@
 						<td>
                         	<form action="/home/agregar" method="get">
                         		<input type="hidden" name="id" value="${producto.getId()}">
-                        		<input type="submit" value="Agregar">
+                        		<input class="btn btn-warning" type="submit" value="Agregar">
                         	</form>
                         </td>
 					</tr>

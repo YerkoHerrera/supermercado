@@ -35,8 +35,49 @@ public class UsuarioController {
     @RequestMapping("/crear")
 	public String crearUsuario(@Valid @ModelAttribute("usuario") Usuario usuario) {
 		
-		usuarioService.insertarUsuario(usuario);
-		return "redirect:/usuario";
+    	Usuario usuario2 = usuarioService.findByEmail(usuario.getEmail());
+    	
+    	//Validacion de usuario vacio
+    	if(usuario.getEmail().isEmpty() && usuario.getPassword().isEmpty()) {
+    		System.out.println("El usuario no puede ser vacio");
+    		return "redirect:/usuario";
+    	}
+    	
+    	//Validacion de si el usuario existe en la bbdd
+    	if(usuario2 != null) {
+    		System.out.println("El usuario ya existe");
+    		return "redirect:/usuario";
+    	}
+    	
+    	System.out.println("Se agrego un usuario nuevo");
+        usuarioService.insertarUsuario(usuario);
+        	
+        return "redirect:/usuario";
+    	
+	}
+    
+    // Es igual a la funcion crear pero esta redirige al login
+    @RequestMapping("/registrar")
+	public String registrarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario) {
+		
+    	Usuario usuario2 = usuarioService.findByEmail(usuario.getEmail());
+    	
+    	//Validacion de usuario vacio
+    	if(usuario.getEmail().isEmpty() && usuario.getPassword().isEmpty()) {
+    		System.out.println("El usuario no puede ser vacio");
+    		return "redirect:/login";
+    	}
+    	
+    	//Validacion de si el usuario existe en la bbdd
+    	if(usuario2 != null) {
+    		System.out.println("El usuario ya existe");
+    		return "redirect:/login";
+    	}
+    	
+    	System.out.println("Se agrego un usuario nuevo");
+        usuarioService.insertarUsuario(usuario);
+        	
+        return "redirect:/login";
 	}
     
 	@RequestMapping("/eliminar")
@@ -51,55 +92,27 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("/{id}/editar")
-	public String editarUsuario(@PathVariable("id") Long id, Model model) {
-		
-		Usuario usuario = usuarioService.buscarUsuario(id);
+    public String edit(@PathVariable("id") Long id, Model model) {
+    	System.out.println("EDITING");
+    	Usuario usuario = usuarioService.buscarUsuario(id);
     	if(usuario !=null) {
-		       model.addAttribute("usuario", usuario);
-		       return "/editarUsuario.jsp";
+		    model.addAttribute("usuario", usuario);
+		    System.out.println("HASTA AHORA VAMOS CON EL USAURIO: " + usuario.getId());
+		    return "/editarUsuario.jsp";
 		}
 		
 		return "redirect:/usuario";
     }
 	
-    
-    @RequestMapping(value="/update/{id}", method=RequestMethod.PUT)
-    public String update(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result) {
-    	System.out.println("Entro al update");
-    	if (result.hasErrors()) {
-        	
-            return "/editarUsuario.jsp";
+	@RequestMapping(value="/update/{id}", method=RequestMethod.PUT)
+	public String update(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "editarUsuario.jsp";
         } else {
         	usuarioService.updateUsuario(usuario);
             return "redirect:/usuario";
         }
     }
-    
-    /*public Boolean validarVacio(String palabra) {
-		if (palabra.isEmpty()) {
-			System.out.println("El nombre está en blanco");
-			return false;
-		}else {
-			return true;
-		}
-	}
-    
-    public Boolean validarLargo(String palabra, Integer largoMax, Integer limite) {
-		if(palabra.length() > limite && palabra.length() <= largoMax) {
-			return true;
-		}else{
-			System.out.println("El nombre está vacio o es muy largo");
-			return false;
-		}
-	}
-    
-    public Boolean validarIguales(String palabra, Integer largo) {
-    	if (palabra.length() == largo) {
-			return true;
-		} else {
-			System.out.println("El String es diferente al permitido");
-			return false;
-		}
-	}*/
 
 }

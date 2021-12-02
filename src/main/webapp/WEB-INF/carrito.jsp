@@ -16,6 +16,8 @@
 <body>
 <jsp:include page="templates/navbar.jsp"/>
 	<div class="container-fluid">
+		<h1>${nombre_usuario}</h1>
+		<hr>
 		<h2>Tu carrito</h2>		
 		<table>
 			<thead>

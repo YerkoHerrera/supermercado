@@ -1,5 +1,7 @@
 package com.nttdata.services;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +61,11 @@ public void insertarCarrito(@Valid Carrito carrito) {
 	}
 	
 	public Carrito eliminarProductoCarrito(@Valid Producto producto) {
-		// Implementar
-		return carritoRepository.eliminarProductoCarrito;
+		return carritoRepository.eliminarProductoCarrito(producto);
+	}
+
+	public List<Producto> obtenerListaProductos(Long id) {
+		return carritoRepository.obtenerListaProductos(id);
 	}
 
 }

@@ -14,10 +14,11 @@
 </head>
 
 <body>
-<jsp:include page="templates/navbar.jsp"/>
 	<div class="container-fluid">
-		<form:form method="post" action="/usuario/crear" modelAttribute="usuario">
-			<input type="hidden" name="_method" value="put">
+	<h1>Sign in</h1>
+	<hr>
+	<h2>Registro de nuevo usuario</h2>
+		<form:form method="post" action="/usuario/registrar" modelAttribute="usuario">
 			<form:label path="nombre">Nombre:</form:label>
 			<form:input type="text" path="nombre"/>
 			<br>
@@ -42,41 +43,6 @@
 			<input type="submit" value="Enviar">
 
 		</form:form>
-		
-		<table>
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Nombre</th>
-					<th scope="col">Apellido</th>
-					<th scope="col">Limite</th>
-					<th scope="col">Codigo Postal</th>
-					<th scope="col">email</th>
-					<th scope="col-2">Acciones</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${listaUsuarios}" var="usuario">
-					<tr>
-						<th scope="row">${usuario.getId()}</th>
-						<td>${usuario.getNombre()}</td>
-                        <td>${usuario.getApellido()}</td>
-                        <td>${usuario.getLimite()}</td>
-                        <td>${usuario.getCodigoPostal()}</td>
-                        <td>${usuario.getEmail()}</td>
-                        <td>
-                        	<a href="/usuario/${usuario.getId()}/editar" class="btn btn-primary" role="button" data-bs-toggle="button">Editar</a>
-                        </td>
-                        <td>
-                        	<form action="/usuario/eliminar" method="get">
-                        		<input type="hidden" name="id" value="${usuario.getId()}">
-                        		<input type="submit" value="Eliminar">
-                        	</form>
-                        </td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
 	</div>
 </body>
 

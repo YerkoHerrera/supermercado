@@ -13,6 +13,6 @@ import com.nttdata.models.Venta;
 public interface VentaRepository extends CrudRepository<Venta, Long> {
 	List<Venta> findAll();
 	
-	@Query(value= "SELECT ventas.producto FROM ventas Where ventas.usuario.id = ?1", nativeQuery = true)
+	@Query(value= "SELECT carritos.producto FROM carritos Where carritos.id = ?1", nativeQuery = true)
 	List<Producto> obtenerListaCarrito(Long id);
 }

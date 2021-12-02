@@ -17,6 +17,7 @@
 <jsp:include page="templates/navbar.jsp"/>
 	<div class="container-fluid">
 		<form:form method="post" action="/producto/update/${producto.id}" modelAttribute="producto">
+			<input type="hidden" name="_method" value="put">
 			<form:label path="nombre">Nombre:</form:label>
 			<form:input type="text" path="nombre"/>
 			<br>
@@ -33,7 +34,8 @@
 			     	</form:option>
 				</c:forEach>
 			</form:select>
-			<input type="submit" value="Editar Producto">
+			<a href="/producto" class="btn btn-success" role="button" data-bs-toggle="button">Volver</a>
+			<input class="btn btn-warning" type="submit" value="Editar">
 
 		</form:form>
 		

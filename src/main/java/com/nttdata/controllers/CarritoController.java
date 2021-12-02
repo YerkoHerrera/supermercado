@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nttdata.models.Carrito;
 import com.nttdata.models.Producto;
+import com.nttdata.models.Usuario;
 import com.nttdata.services.CarritoService;
 import com.nttdata.services.ProductoService;
 import com.nttdata.services.UsuarioService;
@@ -32,13 +34,26 @@ public class CarritoController {
 	VentaService ventaService;
 	
 	@RequestMapping("")
-	public String carrito(@ModelAttribute("carrito") Carrito carrito,
+	public String carrito(@ModelAttribute("carrito") Carrito carrito, 
 			Model model) {
-		
-		model.addAttribute("listaProductos", ventaService.obtenerListaCarrito(1L));
+		System.out.println("La id del carrito es: " + carrito.getId());
+		model.addAttribute("listaProductos", carrito.getProductos());
 		
 		return "carrito.jsp";
 	}
+	
+	@RequestMapping("/{id}/editar")
+    public String edit(@PathVariable("id") Long id, Model model) {
+    	System.out.println("EDITING");
+    	Carrito carrito = carritoService.buscarCarrito(id);
+    	if(carrito !=null) {
+		    model.addAttribute("carrito", carrito);
+		    System.out.println("HASTA AHORA VAMOS CON EL CARRITO: " + carrito.getId());
+		    return "/carrito.jsp";
+		}
+		
+		return "redirect:/home";
+    }
 	
 	
 	/*@RequestMapping("/agregar")

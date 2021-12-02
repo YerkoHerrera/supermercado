@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
@@ -41,17 +43,20 @@ public class Carrito {
 	//Fecha de compra
 	@Column(updatable = false)
 	private Date createdAt;
+	
+	private Date updatedAt;
 
 	public Carrito() {
 		super();
 	}
-
-	public Carrito(Long id, Usuario usuario, List<Producto> productos, Date createdAt) {
+	
+	public Carrito(Long id, Usuario usuario, List<Producto> productos, Date createdAt, Date updatedAt) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.productos = productos;
 		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 
 	public Long getId() {
@@ -85,5 +90,22 @@ public class Carrito {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	@PrePersist
+    protected void onCreate(){
+        this.createdAt = new Date();
+    }
+    @PreUpdate
+    protected void onUpdate(){
+        this.updatedAt = new Date();
+    }
 
 }
